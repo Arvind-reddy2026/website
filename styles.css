@@ -3847,3 +3847,15 @@ body.modal-open{overflow:hidden}
     font-size:14px !important;
   }
 }
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+footer p {
+    margin: 0 auto;
+    text-align: center;
+}
