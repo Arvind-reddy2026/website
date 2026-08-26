@@ -3858,3 +3858,135 @@ footer p {
     margin: 0 auto;
     text-align: center;
 }
+
+
+/* =========================================================
+   FINAL HERO PHOTO FIX — ARVIND REDDY
+   Keep the uploaded photo visible on localhost and Vercel.
+   ========================================================= */
+
+.hero-modern .hero-portrait{
+  position:relative !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:center !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  overflow:visible !important;
+  z-index:30 !important;
+}
+
+.hero-modern .hero-portrait-frame{
+  position:relative !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:center !important;
+  width:min(570px,100%) !important;
+  height:100% !important;
+  min-height:0 !important;
+  margin:0 auto !important;
+  overflow:visible !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  z-index:31 !important;
+  background:transparent !important;
+  border-radius:0 !important;
+}
+
+/* Remove decorative overlays that can cover the real photo */
+.hero-modern .hero-portrait-frame::before{
+  display:none !important;
+  content:none !important;
+}
+
+.hero-modern .hero-portrait-frame > .hero-silhouette,
+.hero-modern .hero-portrait .hero-silhouette,
+.hero-modern .hero-silhouette{
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+
+/* The actual uploaded Arvind Reddy image */
+.hero-modern .hero-portrait .hero-person-photo,
+.hero-modern .hero-portrait img.hero-person-photo{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+
+  position:absolute !important;
+  left:50% !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:0 !important;
+
+  width:auto !important;
+  height:100% !important;
+  max-width:96% !important;
+  max-height:100% !important;
+  min-width:0 !important;
+  min-height:0 !important;
+
+  margin:0 !important;
+  padding:0 !important;
+  transform:translateX(-50%) !important;
+
+  object-fit:contain !important;
+  object-position:center bottom !important;
+
+  mix-blend-mode:normal !important;
+  filter:drop-shadow(0 26px 34px rgba(15,35,55,.16)) !important;
+
+  z-index:100 !important;
+  animation:none !important;
+  transition:none !important;
+}
+
+/* Keep decorative elements behind the real photo */
+.hero-modern .hero-portrait .portrait-halo,
+.hero-modern .hero-portrait .portrait-glow,
+.hero-modern .hero-portrait .flag-shape{
+  pointer-events:none !important;
+  z-index:1 !important;
+}
+
+/* The bottom wave may overlap the feet, but never the main photo */
+.hero-modern .hero-wave{
+  z-index:120 !important;
+  pointer-events:none !important;
+}
+
+@media (max-width:850px){
+  .hero-modern .hero-portrait{
+    height:520px !important;
+    min-height:520px !important;
+    padding:0 0 80px !important;
+  }
+
+  .hero-modern .hero-portrait-frame{
+    width:100% !important;
+    height:100% !important;
+  }
+
+  .hero-modern .hero-portrait .hero-person-photo,
+  .hero-modern .hero-portrait img.hero-person-photo{
+    height:100% !important;
+    max-width:98% !important;
+    bottom:0 !important;
+  }
+}
+
+@media (max-width:520px){
+  .hero-modern .hero-portrait{
+    height:430px !important;
+    min-height:430px !important;
+    padding:0 0 82px !important;
+  }
+
+  .hero-modern .hero-portrait .hero-person-photo,
+  .hero-modern .hero-portrait img.hero-person-photo{
+    height:100% !important;
+    max-width:98% !important;
+  }
+}
