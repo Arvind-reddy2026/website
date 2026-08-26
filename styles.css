@@ -1634,7 +1634,7 @@ body.modal-open{overflow:hidden}
 }
 .hero-portrait-frame + .hero-silhouette,
 .hero-silhouette{
-  display:block !important;
+  display:none !important;
   position:absolute;
   z-index:5;
   pointer-events:none;
