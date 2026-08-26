@@ -1611,8 +1611,7 @@ body.modal-open{overflow:hidden}
   object-fit:contain;
   object-position:center bottom;
   position:relative;
-  z-index:1;
-  mix-blend-mode:multiply;
+  z-index:10;
   filter:drop-shadow(0 24px 32px rgba(15,35,55,.14));
 }
 
