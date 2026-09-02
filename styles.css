@@ -3990,3 +3990,18 @@ footer p {
     max-width:98% !important;
   }
 }
+.brand-mark {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
