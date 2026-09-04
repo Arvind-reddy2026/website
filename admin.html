@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Arvind Reddy | Admin</title>
 <link rel="stylesheet" href="admin.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -10,34 +11,44 @@
 <body>
 <div id="loginScreen" class="login-screen">
   <div class="login-card">
-    <div class="login-mark">AR</div>
+    <div class="login-orbit"><div class="login-mark">AR</div></div>
+    <span class="login-kicker">ARVIND REDDY • ANEKAL</span>
     <h1>Website Admin</h1>
-    <p>Arvind Reddy · Anekal</p>
-    <input id="loginEmail" type="email" placeholder="Admin email">
-    <input id="loginPassword" type="password" placeholder="Password">
-    <button class="save" id="loginBtn">Sign in</button>
+    <p>Secure control center for the public website.</p>
+    <label class="sr-only" for="loginEmail">Admin email</label>
+    <input id="loginEmail" type="email" placeholder="Admin email" autocomplete="username">
+    <label class="sr-only" for="loginPassword">Password</label>
+    <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password">
+    <button class="save login-button" id="loginBtn"><span>Sign in</span><b>→</b></button>
     <div id="loginError" class="error"></div>
   </div>
 </div>
 
 <div id="app" class="hidden">
 <header class="adminbar">
-  <div class="admin-brand"><div class="admin-logo">AR</div><div><strong>ARVIND REDDY</strong><small>Live Website Admin</small></div></div>
-  <div class="admin-actions"><span id="adminEmail"></span><a href="index.html">View Website ↗</a><button id="logout">Sign out</button></div>
+  <div class="admin-brand">
+    <div class="admin-logo"><span>AR</span></div>
+    <div><strong>ARVIND REDDY</strong><small>LIVE WEBSITE ADMIN</small></div>
+  </div>
+  <div class="admin-actions">
+    <span class="connection-pill" id="connectionStatus"><i></i> Connected</span>
+    <span class="admin-email" id="adminEmail"></span>
+    <a href="index.html" target="_blank" rel="noopener">Preview website ↗</a>
+    <button id="logout">Sign out</button>
+  </div>
 </header>
 
 <main class="dashboard">
   <aside class="sidebar">
     <div class="side-label">CONTROL CENTER</div>
-    <button class="tab active" data-tab="profile">Profile</button>
-    <button class="tab" data-tab="news">News</button>
-    <button class="tab" data-tab="events">Events</button>
-    <button class="tab" data-tab="initiatives">Initiatives</button>
-      <button class="tab" data-tab="documents">Documents</button>
-    <button class="tab" data-tab="contact">Contact</button>
-    <div class="side-footer">
-      <span class="status-dot"></span> Connected to Supabase
-    </div>
+    <button class="tab active" data-tab="profile"><span class="nav-icon">◈</span>Profile</button>
+    <button class="tab" data-tab="news"><span class="nav-icon">✦</span>News</button>
+    <button class="tab" data-tab="events"><span class="nav-icon">◷</span>Events</button>
+    <button class="tab" data-tab="initiatives"><span class="nav-icon">◆</span>Initiatives</button>
+    <button class="tab" data-tab="documents"><span class="nav-icon">▣</span>Documents</button>
+    <button class="tab" data-tab="gallery"><span class="nav-icon">▧</span>Gallery</button>
+    <button class="tab" data-tab="contact"><span class="nav-icon">⌁</span>Contact</button>
+    <div class="side-footer"><span class="status-dot"></span><span id="sideStatus">Connected to Supabase</span></div>
   </aside>
 
   <section class="workspace">
@@ -45,97 +56,116 @@
       <div>
         <span class="eyebrow-admin">ARVIND REDDY • ANEKAL</span>
         <h1>Website control center</h1>
-        <p>Manage the public website, news, development work, events and documents from one place.</p>
+        <p>Manage everything currently connected to the live website from one secure workspace.</p>
       </div>
-      <a class="preview-btn" href="index.html" target="_blank">Preview website ↗</a>
+      <div class="workspace-actions">
+        <span id="dirtyState" class="dirty-state hidden">● Unsaved changes</span>
+        <a class="preview-btn" href="index.html" target="_blank" rel="noopener">Preview website <b>↗</b></a>
+      </div>
     </div>
+
+    <div class="translation-banner" id="translationBanner">
+      <div class="translation-symbol">文</div>
+      <div><strong>Automatic English ↔ Kannada translation</strong><span>Type in either language. The matching language field will be filled automatically.</span></div>
+      <div class="translation-state" id="translationState"><i></i> Auto ON</div>
+    </div>
+
     <div class="stats-grid">
-      <div class="stat-card"><span>Published news</span><strong id="statNews">0</strong><small>Latest updates first</small></div>
-      <div class="stat-card"><span>Initiatives</span><strong id="statInitiatives">0</strong><small>Development projects</small></div>
-      <div class="stat-card"><span>Events</span><strong id="statEvents">0</strong><small>Public programmes</small></div>
-      <div class="stat-card"><span>Documents</span><strong id="statDocuments">0</strong><small>Published PDFs</small></div>
+      <div class="stat-card"><span>Published news</span><strong id="statNews">0</strong><small>Latest updates first</small><i>01</i></div>
+      <div class="stat-card"><span>Initiatives</span><strong id="statInitiatives">0</strong><small>Development projects</small><i>02</i></div>
+      <div class="stat-card"><span>Events</span><strong id="statEvents">0</strong><small>Public programmes</small><i>03</i></div>
+      <div class="stat-card"><span>Documents</span><strong id="statDocuments">0</strong><small>Published PDFs</small><i>04</i></div>
     </div>
 
-  <section class="panel active" id="profile">
-    <h1>Profile</h1><p>Changes are saved directly to Supabase.</p>
-    <label>Name<input id="pName"></label>
-    <label>Party<input id="pParty"></label>
-    <label>Constituency<input id="pConstituency"></label>
-    <label>Tagline — English<input id="pTagEn"></label>
-    <label>Tagline — Kannada<input id="pTagKn"></label>
-    <label>About — English<textarea id="pAboutEn"></textarea></label>
-    <label>About — Kannada<textarea id="pAboutKn"></textarea></label>
-    <button class="save" onclick="saveProfile()">Save Profile</button>
-  </section>
+    <section class="panel active" id="profile">
+      <div class="panel-heading"><div><span class="section-kicker">IDENTITY</span><h2>Profile</h2><p>Update the public leader profile shown across the website.</p></div><span class="panel-status">LIVE DATA</span></div>
+      <div class="section-grid">
+        <label>Name<input id="pName"></label>
+        <label>Party<input id="pParty"></label>
+        <label>Constituency<input id="pConstituency"></label>
+        <label>Tagline — English<input id="pTagEn"></label>
+        <label>Tagline — Kannada<input id="pTagKn"></label>
+      </div>
+      <div class="section-grid two">
+        <label>About — English<textarea id="pAboutEn"></textarea></label>
+        <label>About — Kannada<textarea id="pAboutKn"></textarea></label>
+      </div>
+      <div class="action-bar"><span class="action-hint">Changes are written to Supabase after confirmation.</span><button class="save" onclick="saveProfile()">Save Profile <b>→</b></button></div>
+    </section>
 
-  <section class="panel" id="news">
-    <div class="panel-heading"><div><span class="section-kicker">NEWSROOM</span><h2>Latest news</h2><p>Publish official updates. The newest published story automatically appears first on the public website.</p></div><span class="live-badge">LIVE</span></div>
-    <div class="formrow"><input id="nTitleEn" placeholder="English title"><input id="nTitleKn" placeholder="Kannada title"></div>
-    <div class="formrow"><input id="nDate" type="date"><span></span></div>
-    <textarea id="nBodyEn" placeholder="English content"></textarea>
-    <textarea id="nBodyKn" placeholder="Kannada content"></textarea>
-    <button class="save primary-action" onclick="addNews()">Publish news <b>→</b></button>
-    <div class="list-heading"><span>Published updates</span><small>Newest first</small></div>
-    <div id="newsList" class="list"></div>
-  </section>
+    <section class="panel" id="news">
+      <div class="panel-heading"><div><span class="section-kicker">NEWSROOM</span><h2 id="newsFormHeading">Latest news</h2><p>Publish official updates. Edit or remove existing stories anytime.</p></div><span class="panel-status live">LIVE</span></div>
+      <input id="nEditId" type="hidden">
+      <div class="section-grid two"><label>English title<input id="nTitleEn" placeholder="Headline"></label><label>Kannada title<input id="nTitleKn" placeholder="ಶೀರ್ಷಿಕೆ"></label></div>
+      <div class="section-grid one"><label>Publish date<input id="nDate" type="date"></label></div>
+      <div class="section-grid two"><label>English content<textarea id="nBodyEn" placeholder="Official update..."></textarea></label><label>Kannada content<textarea id="nBodyKn" placeholder="ಅಧಿಕೃತ ಮಾಹಿತಿ..."></textarea></label></div>
+      <div class="action-bar"><span id="newsModeHint" class="action-hint">Create a new public news update.</span><div><button class="ghost-btn hidden" id="cancelNewsEdit" onclick="cancelNewsEdit()">Cancel edit</button><button class="save" onclick="saveNews()">Publish news <b>→</b></button></div></div>
+      <div class="list-heading"><span>Published updates</span><small>Newest first</small></div><div id="newsList" class="list"></div>
+    </section>
 
-  <section class="panel" id="events">
-    <h1>Events</h1><p>Add public meetings and programmes.</p>
-    <div class="formrow"><input id="eTitleEn" placeholder="English title"><input id="eTitleKn" placeholder="Kannada title"></div>
-    <div class="formrow"><input id="eDate" type="date"><input id="eLocationEn" placeholder="English location"></div>
-    <input id="eLocationKn" placeholder="Kannada location">
-    <button class="save" onclick="addEvent()">Add Event</button>
-    <div id="eventList" class="list"></div>
-  </section>
+    <section class="panel" id="events">
+      <div class="panel-heading"><div><span class="section-kicker">PUBLIC PROGRAMMES</span><h2 id="eventFormHeading">Events</h2><p>Add meetings and programmes with a date, automatic weekday, time and location.</p></div><span class="panel-status">SCHEDULE</span></div>
+      <input id="eEditId" type="hidden">
+      <div class="section-grid two"><label>English title<input id="eTitleEn" placeholder="Event title"></label><label>Kannada title<input id="eTitleKn" placeholder="ಕಾರ್ಯಕ್ರಮದ ಶೀರ್ಷಿಕೆ"></label></div>
+      <div class="section-grid three">
+        <label>Date<input id="eDate" type="date"><small class="field-help">Choose the event date.</small></label>
+        <label>Day<input id="eDay" readonly placeholder="Automatically calculated"><small class="field-help">Calculated automatically.</small></label>
+        <label>Time<input id="eTime" type="time"><small class="field-help">Optional.</small></label>
+      </div>
+      <div class="section-grid two"><label>English location<input id="eLocationEn" placeholder="Anekal"></label><label>Kannada location<input id="eLocationKn" placeholder="ಆನೇಕಲ್"></label></div>
+      <div class="section-grid two"><label>Description — English<textarea id="eDescEn" placeholder="Event details..."></textarea></label><label>Description — Kannada<textarea id="eDescKn" placeholder="ಕಾರ್ಯಕ್ರಮದ ವಿವರ..."></textarea></label></div>
+      <div class="action-bar"><span id="eventModeHint" class="action-hint">Create a new public event.</span><div><button class="ghost-btn hidden" id="cancelEventEdit" onclick="cancelEventEdit()">Cancel edit</button><button class="save" onclick="saveEvent()">Add Event <b>→</b></button></div></div>
+      <div class="list-heading"><span>Scheduled events</span><small>Upcoming first</small></div><div id="eventList" class="list"></div>
+    </section>
 
+    <section class="panel" id="initiatives">
+      <div class="panel-heading"><div><span class="section-kicker">DEVELOPMENT</span><h2 id="initiativeFormHeading">Initiatives & Development</h2><p>Publish projects, achievements and public-service activities with up to five images.</p></div><span class="panel-status">PROJECTS</span></div>
+      <input id="iEditId" type="hidden">
+      <div class="section-grid two"><label>Title — English<input id="iTitleEn" placeholder="Project title"></label><label>Title — Kannada<input id="iTitleKn" placeholder="ಯೋಜನೆಯ ಶೀರ್ಷಿಕೆ"></label></div>
+      <div class="section-grid two"><label>Category — English<input id="iCategoryEn" placeholder="Infrastructure"></label><label>Category — Kannada<input id="iCategoryKn" placeholder="ಮೂಲಸೌಕರ್ಯ"></label></div>
+      <div class="section-grid three"><label>Date<input id="iDate" type="date"></label><label>Location — English<input id="iLocationEn"></label><label>Location — Kannada<input id="iLocationKn"></label></div>
+      <div class="section-grid two"><label>Short summary — English<textarea id="iSummaryEn"></textarea></label><label>Short summary — Kannada<textarea id="iSummaryKn"></textarea></label></div>
+      <div class="section-grid two"><label>Full details — English<textarea id="iBodyEn"></textarea></label><label>Full details — Kannada<textarea id="iBodyKn"></textarea></label></div>
+      <div class="section-grid two"><label>Impact / result — English<textarea id="iImpactEn"></textarea></label><label>Impact / result — Kannada<textarea id="iImpactKn"></textarea></label></div>
+      <label>Project images<input id="iFiles" type="file" accept="image/*" multiple></label>
+      <small class="field-help">Up to 5 images per initiative. New images are added to existing images when editing.</small>
+      <div class="action-bar"><span id="initiativeModeHint" class="action-hint">Create a new initiative.</span><div><button class="ghost-btn hidden" id="cancelInitiativeEdit" onclick="cancelInitiativeEdit()">Cancel edit</button><button class="save" onclick="saveInitiative()">Publish Initiative <b>→</b></button></div></div>
+      <div class="list-heading"><span>Published initiatives</span><small>Newest first</small></div><div id="initiativeList" class="list"></div>
+    </section>
 
-  <section class="panel" id="initiatives">
-    <h1>Initiatives & Development</h1>
-    <p>Add the development work, achievements, projects and public-service activities you want visitors to see. Images are optional.</p>
+    <section class="panel" id="documents">
+      <div class="panel-heading"><div><span class="section-kicker">DOCUMENT LIBRARY</span><h2>Documents</h2><p>Upload PDFs, edit their public details and permanently remove the Storage object when deleting.</p></div><span class="panel-status">STORAGE</span></div>
+      <input id="dEditId" type="hidden">
+      <input id="dFile" type="file" accept=".pdf,application/pdf">
+      <div class="section-grid two"><label>English title<input id="dTitleEn" placeholder="Document title"></label><label>Kannada title<input id="dTitleKn" placeholder="ದಾಖಲೆಯ ಶೀರ್ಷಿಕೆ"></label></div>
+      <div class="section-grid two"><label>English description<textarea id="dDescEn"></textarea></label><label>Kannada description<textarea id="dDescKn"></textarea></label></div>
+      <div class="action-bar"><span id="documentModeHint" class="action-hint">Upload a new PDF or edit an existing document.</span><div><button class="ghost-btn hidden" id="cancelDocumentEdit" onclick="cancelDocumentEdit()">Cancel edit</button><button class="save" onclick="saveDocument()">Upload PDF <b>→</b></button></div></div>
+      <div class="list-heading"><span>Published documents</span><small>Newest first</small></div><div id="documentList" class="list"></div>
+    </section>
 
-    <div class="formrow"><input id="iTitleEn" placeholder="Title — English"><input id="iTitleKn" placeholder="Title — Kannada"></div>
-    <div class="formrow"><input id="iCategoryEn" placeholder="Category — English (e.g. Infrastructure)"><input id="iCategoryKn" placeholder="Category — Kannada"></div>
-    <div class="formrow"><input id="iDate" type="date"><input id="iLocationEn" placeholder="Location — English"></div>
-    <input id="iLocationKn" placeholder="Location — Kannada">
+    <section class="panel" id="gallery">
+      <div class="panel-heading"><div><span class="section-kicker">MEDIA</span><h2>Gallery</h2><p>Upload and manage public gallery photos stored in Supabase Storage.</p></div><span class="panel-status">MEDIA</span></div>
+      <input id="gEditId" type="hidden">
+      <label>Photo<input id="gFile" type="file" accept="image/*"></label>
+      <label>Caption — English<input id="gCaptionEn" placeholder="Photo caption"></label>
+      <label>Caption — Kannada<input id="gCaptionKn" placeholder="ಚಿತ್ರದ ಶೀರ್ಷಿಕೆ"></label>
+      <div class="action-bar"><span id="galleryModeHint" class="action-hint">Upload a new gallery photo.</span><div><button class="ghost-btn hidden" id="cancelGalleryEdit" onclick="cancelGalleryEdit()">Cancel edit</button><button class="save" onclick="saveGallery()">Upload photo <b>→</b></button></div></div>
+      <div class="list-heading"><span>Gallery</span><small>Newest first</small></div><div id="galleryList" class="gallery-list"></div>
+    </section>
 
-    <label>Short summary — English<textarea id="iSummaryEn" placeholder="A short description shown on the initiative card."></textarea></label>
-    <label>Short summary — Kannada<textarea id="iSummaryKn" placeholder="ಕಾರ್ಡ್‌ನಲ್ಲಿ ಕಾಣಿಸುವ ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ."></textarea></label>
-    <label>Full details — English<textarea id="iBodyEn" placeholder="Explain the development work, what was done, who benefited, milestones, etc."></textarea></label>
-    <label>Full details — Kannada<textarea id="iBodyKn" placeholder="ಅಭಿವೃದ್ಧಿ ಕೆಲಸ, ನಡೆದ ಕಾರ್ಯ, ಪ್ರಯೋಜನ ಪಡೆದವರು, ಮೈಲಿಗಲ್ಲುಗಳು ಇತ್ಯಾದಿ ವಿವರಿಸಿ."></textarea></label>
-    <label>Impact / result — English<textarea id="iImpactEn" placeholder="What changed or what result was achieved?"></textarea></label>
-    <label>Impact / result — Kannada<textarea id="iImpactKn" placeholder="ಯಾವ ಬದಲಾವಣೆ ಅಥವಾ ಫಲಿತಾಂಶ ಸಾಧಿಸಲಾಗಿದೆ?"></textarea></label>
-
-    <label>Project images <input id="iFiles" type="file" accept="image/*" multiple></label>
-    <small class="field-help">You can add multiple images. Recommended: clear project/site photos, up to 5 images per initiative.</small>
-    <button class="save" onclick="addInitiative()">Publish Initiative</button>
-    <div id="initiativeList" class="list"></div>
-  </section>
-
-  <section class="panel" id="documents">
-    <h1>Documents</h1><p>Upload PDFs and publish them on the public website.</p>
-    <input id="dFile" type="file" accept=".pdf,application/pdf">
-    <div class="formrow"><input id="dTitleEn" placeholder="English title"><input id="dTitleKn" placeholder="Kannada title"></div>
-    <textarea id="dDescEn" placeholder="English description"></textarea>
-    <textarea id="dDescKn" placeholder="Kannada description"></textarea>
-    <button class="save" onclick="addDocument()">Upload PDF</button>
-    <div id="documentList" class="list"></div>
-  </section>
-
-  <section class="panel" id="contact">
-    <h1>Contact</h1><p>Enter only verified official contact information.</p>
-    <label>Phone<input id="cPhone"></label>
-    <label>Email<input id="cEmail"></label>
-    <label>WhatsApp number<input id="cWhatsapp"></label>
-    <label>Office address<textarea id="cOffice"></textarea></label>
-    <label>Instagram<input id="cInstagram"></label>
-    <label>Facebook<input id="cFacebook"></label>
-    <label>YouTube<input id="cYoutube"></label>
-    <button class="save" onclick="saveContact()">Save Contact</button>
+    <section class="panel" id="contact">
+      <div class="panel-heading"><div><span class="section-kicker">COMMUNICATION</span><h2>Contact</h2><p>Only verified official contact information should be published.</p></div><span class="panel-status">PUBLIC</span></div>
+      <div class="section-grid two"><label>Phone<input id="cPhone"></label><label>Email<input id="cEmail" type="email"></label></div>
+      <div class="section-grid two"><label>WhatsApp number<input id="cWhatsapp"></label><label>Office address<textarea id="cOffice"></textarea></label></div>
+      <div class="section-grid three"><label>Instagram<input id="cInstagram"></label><label>Facebook<input id="cFacebook"></label><label>YouTube<input id="cYoutube"></label></div>
+      <div class="action-bar"><span class="action-hint">Contact changes affect the public website immediately after saving.</span><button class="save" onclick="saveContact()">Save Contact <b>→</b></button></div>
+    </section>
   </section>
 </main>
-<div id="toast"></div>
-</div>
 
+<div id="modalRoot" class="modal-root hidden"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+</div>
 <script src="admin-live.js"></script>
 </body>
 </html>
